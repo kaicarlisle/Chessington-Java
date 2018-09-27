@@ -49,4 +49,8 @@ public class Board {
     public void placePiece(Coordinates coords, Piece piece) {
         board[coords.getRow()][coords.getCol()] = piece;
     }
+    
+    public boolean isEmpty(Coordinates place) {
+    	return this.get(place) == null;
+    }
 }

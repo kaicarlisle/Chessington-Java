@@ -7,7 +7,7 @@ public final class Coordinates {
     private final int col;
 
     public Coordinates(int row, int col) {
-        this.row = row;
+		this.row = row;
         this.col = col;
     }
 
@@ -38,7 +38,7 @@ public final class Coordinates {
         return String.format("row %d, column %d", row, col);
     }
 
-    public Coordinates plus(int rowDiff, int colDiff) {
+    public Coordinates plus(int rowDiff, int colDiff){
         return new Coordinates(row + rowDiff, col + colDiff);
     }
 }
