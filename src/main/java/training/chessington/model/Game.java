@@ -1,6 +1,7 @@
 package training.chessington.model;
 
 import training.chessington.model.pieces.*;
+import training.chessington.model.pieces.Piece.PieceType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,12 @@ public class Game {
         }
 
         board.move(from, to);
+        // todo promote if appropriate
+        if ((to.getRow() == 0 || to.getRow() == 7) && board.get(to).getType().equals(PieceType.PAWN)) {
+        	Queen queenPiece = new Queen(board.get(to).getColour());
+        	board.placePiece(to, queenPiece);
+        }
+        
         nextPlayer = nextPlayer == PlayerColour.WHITE ? PlayerColour.BLACK : PlayerColour.WHITE;
     }
 

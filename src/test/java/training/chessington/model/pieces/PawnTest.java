@@ -3,6 +3,8 @@ package training.chessington.model.pieces;
 import org.junit.Test;
 import training.chessington.model.Board;
 import training.chessington.model.Coordinates;
+import training.chessington.model.Game;
+import training.chessington.model.InvalidMoveException;
 import training.chessington.model.Move;
 import training.chessington.model.PlayerColour;
 
@@ -281,5 +283,26 @@ public class PawnTest {
         assertThat(moves).doesNotContain(new Move(pawnCoords, rookCoords));
         Coordinates otherDiagonal = pawnCoords.plus(1, -1);
         assertThat(moves).doesNotContain(new Move(pawnCoords, otherDiagonal));
+    }
+    
+    @Test
+    public void whitePawnGetsPromotedToQueen() {
+        // Arrange
+        Board board = Board.empty();
+        Piece pawn = new Pawn(PlayerColour.WHITE);
+        Coordinates pawnCoords = new Coordinates(1, 4);
+        board.placePiece(pawnCoords, pawn);
+
+        // Act
+        Move move = new Move(pawnCoords, pawnCoords.plus(-1, 0));
+        Game game = new Game(board);
+        try {
+			game.makeMove(move);
+		} catch (InvalidMoveException e) {
+			e.printStackTrace();
+		}
+
+        // Assert
+        assertThat(board.get(new Coordinates(0,4)).getType()).isEqualTo(Piece.PieceType.QUEEN);
     }
 }
