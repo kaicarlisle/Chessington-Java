@@ -1,7 +1,5 @@
 package training.chessington.model.pieces;
 
-import static training.chessington.model.pieces.PieceAssert.*;
-
 import java.util.List;
 
 import org.junit.Test;
