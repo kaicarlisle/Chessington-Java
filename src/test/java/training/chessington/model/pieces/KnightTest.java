@@ -13,6 +13,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class KnightTest {
+	
     @Test
     public void whiteKnightCanMoveLShape() {
         // Arrange

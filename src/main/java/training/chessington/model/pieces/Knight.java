@@ -22,7 +22,7 @@ public class Knight extends AbstractPiece {
 			for (int col = -2; col <= 2; col++) {
 				if ((row*row) + (col*col) == 5) {
 					to = new Coordinates(from.getRow() + row, from.getCol() + col);
-					if (to.getCol()<=7 && to.getCol()>=0 && to.getRow()<=7 && to.getRow()>=0) {
+					if (to.isOnBoard()) {
 						if (board.isEmpty(to)) {
 							moves.add(new Move(from, to));
 
