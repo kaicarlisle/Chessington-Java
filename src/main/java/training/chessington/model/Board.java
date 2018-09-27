@@ -1,6 +1,9 @@
 package training.chessington.model;
 
+import java.util.ArrayList;
+
 import training.chessington.model.pieces.*;
+import training.chessington.model.pieces.Piece.PieceType;
 
 public class Board {
 
@@ -65,5 +68,38 @@ public class Board {
     	}
     	
     	return newboard;
+    }
+    public boolean checkCheck(PlayerColour colour) {
+    	Coordinates coords;
+    	Coordinates kingCoords = new Coordinates(-1,-1);
+    	kingFind:
+    	for (int row = 0; row <= 7; row++) {
+			for (int col = 0; col <= 7; col++) {
+				coords = new Coordinates(row, col);
+				if (!this.isEmpty(coords)) {
+					if (this.get(coords).getColour().equals(colour) && this.get(coords).getType().equals(PieceType.KING)) {
+						kingCoords = coords;
+						break kingFind;
+					}
+				}
+			}
+		}
+    	
+    	
+    	for (int row = 0; row <= 7; row++) {
+			for (int col = 0; col <= 7; col++) {
+				coords = new Coordinates(row, col);
+				if (!this.isEmpty(coords)) {
+					if (!this.get(coords).getColour().equals(colour) && !this.get(coords).getType().equals(PieceType.KING)) {
+						for (Move enemyMove : this.get(coords).getAllowedMoves(coords, this)) {
+							if (enemyMove.getTo().equals(kingCoords)) {
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+    	return false;
     }
 }

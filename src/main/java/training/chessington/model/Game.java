@@ -61,10 +61,31 @@ public class Game {
         	Queen queenPiece = new Queen(board.get(to).getColour());
         	board.placePiece(to, queenPiece);
         }
-//        if (checkCheck && king.Moves is empty) {
-//        	//end game
-//        }
-//        	
+        
+        PlayerColour colour = PlayerColour.BLACK;
+        if (piece.getColour().equals(PlayerColour.BLACK)) {
+        	colour = PlayerColour.WHITE;
+        }
+        
+        Coordinates kingCoords = new Coordinates(-1,-1);
+        Coordinates coords;
+        kingFind:
+		for (int row = 0; row <= 7; row++) {
+			for (int col = 0; col <= 7; col++) {
+				coords = new Coordinates(row, col);
+				if (!board.isEmpty(coords)) {
+					if (board.get(coords).getColour().equals(colour) && board.get(coords).getType().equals(PieceType.KING)) {
+						kingCoords = coords;
+						break kingFind;
+					}
+				}
+			}
+		}
+        Piece king = board.get(kingCoords);
+        if (board.checkCheck(colour) && king.getAllowedMoves(kingCoords, board).size() == 0) {
+        	this.isEnded = true;
+        }
+        	
         nextPlayer = nextPlayer == PlayerColour.WHITE ? PlayerColour.BLACK : PlayerColour.WHITE;
     }
 

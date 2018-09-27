@@ -57,21 +57,11 @@ public class King extends AbstractPiece {
     		copyBoard.move(kingsMove.getFrom(), kingsMove.getTo());
     		//for each available move of each enemy piece:
     		//	if their move.to = this move.to, exclude this move form the king's list of available moves
-    		for (int row = 0; row <= 7; row++) {
-    			for (int col = 0; col <= 7; col++) {
-    				coords = new Coordinates(row, col);
-    				if (!copyBoard.isEmpty(coords)) {
-    					if (!copyBoard.get(coords).getColour().equals(this.colour) && !copyBoard.get(coords).getType().equals(PieceType.KING)) {
-    						for (Move enemyMove : copyBoard.get(coords).getAllowedMoves(coords, copyBoard)) {
-    							if (enemyMove.getTo().equals(kingsMove.getTo())) {
-    								illegalMoves.add(kingsMove);
-    								continue outerloop;
-    							}
-    						}
-    					}
-    				}
-    			}
+    		if (copyBoard.checkCheck(this.colour)) {
+    			illegalMoves.add(kingsMove);
     		}
+    		
+    		
     	}
 		
 		for (Move illegalMove : illegalMoves) {
