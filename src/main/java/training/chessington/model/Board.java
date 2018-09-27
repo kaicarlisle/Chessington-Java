@@ -53,4 +53,17 @@ public class Board {
     public boolean isEmpty(Coordinates place) {
     	return this.get(place) == null;
     }
+    
+    public Board copy() {
+    	Coordinates coords;
+    	Board newboard = new Board();
+    	for (int row = 0; row<=7; row++) {
+    		for (int col =0; col<=7; col++) {
+    			coords = new Coordinates(row, col);
+    			newboard.placePiece(coords , this.get(coords));
+    		}
+    	}
+    	
+    	return newboard;
+    }
 }
